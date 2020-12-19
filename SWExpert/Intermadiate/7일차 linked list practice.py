@@ -7,9 +7,13 @@ class node:
 	def __init__(self,data=None):
 		self.data=data
 		self.next=None
+            # It will be storing the pointer to the next node
+            # The last node will have None it's pointer.
 
 class linked_list:
 	def __init__(self):
+        # head node doens't contain any actual data, and it is not gonna be indexable. It is just gonna be used as a place holder.
+        # head is the startring of the list which should be empty because the purpose of head is to access to the list.
 		self.head=node()
 
 	# Adds new node containing 'data' to the end of the linked list.
