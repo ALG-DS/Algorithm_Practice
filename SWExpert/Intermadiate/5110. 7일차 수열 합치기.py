@@ -63,38 +63,34 @@
 #2 251 798 365 506 494 193 675 387 334 224
 #3 404 483 16 788 123 274 231 659 778 178
 '''
-
 T = int(input())
 
 for t in range(1, T+1):
     # N 수열의 길이, M 수열의 갯수
     N, M = map(int, input().split())
 
-    # 모든 리스트들을 저장
+    # 리스트를 입력 받을때 마다 그때그때 비교 진행
     lst = []
     for m in range(M):
         lst.append(list(map(int, input().split())))
-    
-    # 리스트가 둘 이상 있으면 비교 진행
-    while len(lst) > 1:
-        # 비교에 성공했는지 여부를 저장하기위해 -1로 초기화 (비교 후에도 -1이면 맨 뒤로 보내서 append)
-        idx = -1
-
-        # 
-        for i in range(len(lst[0])):
-            if lst[0][i] > lst[1][0]:
-                idx = i
-                # 끼워 넣기
-                lst[0][idx:idx] = lst[1]
-                # 끼워넣고 나면 비교 리스트 삭제
+        # list가 두개 이상이면 진행
+        if len(lst) > 1:
+            # 비교에 성공했는지 여부를 저장하기위해 -1로 초기화 (비교 후에도 -1이면 맨 뒤로 보내서 append)
+            idx = -1
+            for i in range(len(lst[0])):
+                if lst[0][i] > lst[1][0]:
+                    idx = i
+                    # 끼워 넣기
+                    lst[0][idx:idx] = lst[1]
+                    # 끼워넣고 나면 비교 리스트 삭제
+                    lst.pop(1)
+                    break
+            # 비교에 실패했다면 맨 뒤로 보내서 append
+            if idx == -1:
+                for j in lst[1]:
+                    lst[0].append(j)
+                # 넣고 나면 비교리스트 삭제
                 lst.pop(1)
-                break
-        # 비교에 실패했다면 맨 뒤로 보내서 append
-        if idx == -1:
-            for j in lst[1]:
-                lst[0].append(j)
-            # 넣고 나면 비교리스트 삭제
-            lst.pop(1)
 
     result = lst[0][:]
     joined_result = ' '.join(map(str, result[::-1][:10]))
